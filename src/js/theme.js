@@ -2,18 +2,19 @@ const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
+const refs = {
+  body: document.querySelector('body'),
+  switchInput: document.querySelector('.theme-switch__toggle'),
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-  const refs = {
-    body: document.querySelector('body'),
-    switchInput: document.querySelector('.theme-switch__toggle'),
-  };
-  if (localStorage.getItem('keyTheme') === null) {
+  const getItemKeyThem = localStorage.getItem('keyTheme');
+  if (!getItemKeyThem) {
     refs.body.classList.add(Theme.LIGHT);
-    refs.switchInput.checked = false;
+    // refs.switchInput.checked = false;
   } else {
-    refs.body.classList.add(localStorage.getItem('keyTheme'));
-    refs.switchInput.checked = true;
+    refs.body.classList.add(getItemKeyThem);
+    refs.switchInput.checked = Theme.LIGHT !== getItemKeyThem;
   }
   refs.switchInput.addEventListener('change', () => {
     if (refs.body.classList.contains(Theme.LIGHT)) {
